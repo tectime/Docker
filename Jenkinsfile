@@ -18,7 +18,14 @@ pipeline {
     stage("create a new docker container") {
       steps {
         sh """
-          docker run -d -p 3000:3000 node:6-alpine
+          docker run -d --name alpine -p 3000:3000 node:6-alpine
+        """
+      }
+    }
+    stage("Start the docker container alpine") {
+      steps {
+        sh """
+          docker start alpine
         """
       }
     }
