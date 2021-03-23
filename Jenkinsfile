@@ -15,5 +15,12 @@ pipeline {
         """
       }
     }
+    stage("create a new docker container") {
+      steps {
+        sh """
+          docker run -d -p 3000:3000 node:6-alpine
+        """
+      }
+    }
   }
 }
