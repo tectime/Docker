@@ -28,14 +28,12 @@ pipeline {
           docker start alpine
         """
       }
-    }    
-    timestamps {
-      node('build_node'){
-        stage("Scan alpine image"){
-          aqua locationType: 'local', localImage: 'alpine', hideBase: false, notCompliesCmd: '', onDisallowed: 'ignore', showNegligible: false
-        }
-      }
-    }    
+    }
+    
+    stage("Scan alpine image"){
+      aqua locationType: 'local', localImage: 'alpine', hideBase: false, notCompliesCmd: '', onDisallowed: 'ignore', showNegligible: false
+    }
+    
     stage("Stop and remove the docker container alpine") {
       steps {
         sh """
