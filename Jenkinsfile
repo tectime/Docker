@@ -18,7 +18,7 @@ pipeline {
     stage("create a new docker container") {
       steps {
         sh """
-          docker run -d --name alpine -p 3000:3000 node:6-alpine
+          docker run -d --rm --name alpine -p 3000:3000 node:6-alpine
         """
       }
     }
@@ -29,5 +29,12 @@ pipeline {
         """
       }
     }
+    stage("Start the docker container alpine") {
+      steps {
+        sh """
+          docker rm -f alpine
+        """
+      }
+    }        
   }
 }
