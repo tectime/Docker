@@ -18,7 +18,7 @@ pipeline {
     stage("create a new docker container") {
       steps {
         sh """
-          docker run -d --rm --name alpine -p 3000:3000 node:6-alpine
+          docker run -d --name alpine -p 3000:3000 node:6-alpine
         """
       }
     }
@@ -31,7 +31,7 @@ pipeline {
     }
     stage("Aqua Security Scanner") {
       steps {
-        aqua customFlags: '', hideBase: false, hostedImage: 'node:latest', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', showNegligible: false, tarFilePath: ''
+        aqua customFlags: '', hideBase: false, hostedImage: 'alpine:latest', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', showNegligible: false, tarFilePath: ''
       }
     }    
     stage("Stop and remove the docker container alpine") {
