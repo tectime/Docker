@@ -32,7 +32,9 @@ pipeline {
     stage {
       node('node1'){
         stage("Scan alpine image"){
-          aqua locationType: 'local', localImage: 'alpine', hideBase: false, notCompliesCmd: '', onDisallowed: 'ignore', showNegligible: false
+          steps {
+            aqua customFlags: '', hideBase: false, hostedImage: 'node:latest', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', showNegligible: false, tarFilePath: ''
+          }
         }
       }
     }    
