@@ -29,13 +29,9 @@ pipeline {
         """
       }
     }
-    stage {
-      node('node1'){
-        stage("Scan alpine image"){
-          steps {
-            aqua customFlags: '', hideBase: false, hostedImage: 'node:latest', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', showNegligible: false, tarFilePath: ''
-          }
-        }
+    stage("Aqua Security Scanner") {
+      steps {
+        aqua customFlags: '', hideBase: false, hostedImage: 'node:latest', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', showNegligible: false, tarFilePath: ''
       }
     }    
     stage("Stop and remove the docker container alpine") {
