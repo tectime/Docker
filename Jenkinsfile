@@ -30,7 +30,7 @@ pipeline {
       }
     }
     stage {
-      node('build_node'){
+      node('node1'){
         stage("Scan alpine image"){
           aqua locationType: 'local', localImage: 'alpine', hideBase: false, notCompliesCmd: '', onDisallowed: 'ignore', showNegligible: false
         }
