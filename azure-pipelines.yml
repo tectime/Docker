@@ -1,5 +1,4 @@
 # Docker
-
 # Build a Docker image
 
 trigger: none
@@ -25,15 +24,14 @@ stages:
         containerRegistry: 'Aqua-registry'
         command: 'login'
     - task: Docker@2
-      displayName: Build and push an image to container registry
       inputs:
-        containerRegistry: 'Docker'
-        repository: 'tectimerfm/malware'
+        containerRegistry: 'DockerHub'
+        repository: 'tectimerfm/malware:latest'
         command: 'build'
         Dockerfile: '**/Dockerfile'
     - task: aquasecScanner@4
       inputs:
-        image: 'alpine'
+        image: 'tectimerfm/malware:latest'
         scanType: 'dockerarchive'
         register: true
         hideBase: false
@@ -43,3 +41,4 @@ stages:
         registry: 'registry.aquasec.com'
         connection: 'Aqua-server'
         caCertificates: true
+
