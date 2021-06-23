@@ -39,5 +39,5 @@ stages:
        windowsScannerVersion: '4.2.0'
        scanner: 'stsaquaseclab.azurecr.io/aquasec/scanner:4.6.20079'
        runOptions: 
-       connection: 'aquaseclab console'
+       connection: 'Aqua-server'
        composefile: ''
