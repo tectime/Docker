@@ -34,27 +34,15 @@ stages:
         dockerfile: '**/Dockerfile'
         tags: |
           3
-
     - task: aquasecScanner@4
       inputs:
-        image: 'mongo'
-        scanType: 'local'
+        image: 'alpine'
+        scanType: 'dockerarchive'
+        register: true
         hideBase: false
-        showNegligible: true
-        connection: 'demo2404'
-        scanner: 'registry.aquasec.com/scanner:6.0'
-        registry: 'Docker Hub'- task: aquasecScanner@4
-
-
-  inputs:
-    image: 'malware'
-    scanType: 'local'
-    register: true
-    hideBase: true
-    showNegligible: true
-    windowsScannerVersion: '4.2.0'
-    registry: 'Docker'
-    connection: 'local-csp'
-    caCertificates: true
-    showWillNotFix: true
-    registerCompliant: true
+        showNegligible: false
+        windowsScannerVersion: '4.2.0'
+        scanner: 'registry.aquasec.com/scanner:6.2'
+        registry: 'registry.aquasec.com'
+        connection: 'local-csp'
+        caCertificates: true
