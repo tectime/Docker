@@ -22,7 +22,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'Aqua'
+        containerRegistry: 'Aqua-registry'
         command: 'login'
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -41,5 +41,5 @@ stages:
         windowsScannerVersion: '4.2.0'
         scanner: 'registry.aquasec.com/scanner:6.2'
         registry: 'registry.aquasec.com'
-        connection: 'local-csp'
+        connection: 'Aqua-server'
         caCertificates: true
