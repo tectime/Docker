@@ -28,19 +28,23 @@ stages:
         tags: |
           $(tag)
     - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: build
+        repository: alpine
+        dockerfile: '**/Dockerfile'
+        tags: |
+          3
+    - task: Docker@2
       inputs:
         containerRegistry: 'Aqua-registry'
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-       image: '$(Build.Repository.Name):$(Build.BuildId)'
-       registry: ''
-       scanType: 'local'
-       register: false
-       hideBase: false
-       showNegligible: false
-       windowsScannerVersion: '4.2.0'
-       scanner: 'stsaquaseclab.azurecr.io/aquasec/scanner:4.6.20079'
-       runOptions: 
-       connection: 'Aqua-server'
-       composefile: ''
+        image: 'mongo'
+        scanType: 'local'
+        hideBase: false
+        showNegligible: true
+        connection: 'Aqua-server'
+        scanner: 'registry.aquasec.com/scanner:6.2.RC2'
+        registry: 'DockerHub'
