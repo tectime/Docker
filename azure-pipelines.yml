@@ -48,5 +48,5 @@ stages:
         showNegligible: false
         windowsScannerVersion: '4.2.0'
         scanner: 'registry.aquasec.com/scanner:6.0'
-        registry: 'Docker'
+        registry: 'Docker Hub'
         connection: 'Aqua-server'
