@@ -47,4 +47,4 @@ stages:
         showNegligible: true
         connection: 'Aqua-server'
         scanner: 'registry.aquasec.com/scanner:6.2.RC2'
-        registry: 'DockerHub'
+        registry: 'Docker Hub'
