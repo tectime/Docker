@@ -31,7 +31,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: build
-        repository: alpine
+        repository: tectimerfm/malware
         dockerfile: '**/Dockerfile'
         tags: |
           3
@@ -41,10 +41,12 @@ stages:
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-        image: 'tectimerfm/malware:latest'
+        image: 'tectimerfm/malware'
         scanType: 'local'
+        register: false
         hideBase: false
-        showNegligible: true
-        connection: 'Aqua-server'
+        showNegligible: false
+        windowsScannerVersion: '4.2.0'
         scanner: 'registry.aquasec.com/scanner:6.0'
-        registry: 'Docker Hub'
+        registry: 'Docker'
+        connection: 'Aqua-server'
