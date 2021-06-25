@@ -47,9 +47,9 @@ stages:
       displayName: Scan Docker Image for Vulnerabilities (Aquasec)
       inputs:
         image: 'tectimerfm/malware:latest'
-        scanType: 'hosted'
+        scanType: 'local'
         register: false
-        registry: 'Docker'
+        registry: 'Docker Hub'
         hideBase: false
         showNegligible: false
         scanner: "registry.aquasec.com/scanner:6.0"
