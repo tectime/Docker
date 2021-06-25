@@ -39,14 +39,23 @@ stages:
       inputs:
         containerRegistry: 'Aqua-registry'
         command: 'login'
-    - task: aquasecScanner@4
+    - task: Docker@2
       inputs:
-        image: 'tectimerfm/malware'
-        scanType: 'local'
+        containerRegistry: 'DockerHub'
+        command: 'login'
+    - task: aquasecScanner@4
+      displayName: Scan Docker Image for Vulnerabilities (Aquasec)
+      inputs:
+        image: 'tectimerfm/malware:latest'
+        scanType: 'hosted'
         register: false
+        registry: 'DockerHub'
         hideBase: false
         showNegligible: false
-        windowsScannerVersion: '4.2.0'
-        scanner: 'registry.aquasec.com/scanner:6.0'
-        registry: 'Docker Hub'
+        scanner: "registry.aquasec.com/scanner:6.0"
         connection: 'Aqua-server'
+        notCompliesCmd: 'ls'
+        caCertificates: false
+        continueOnError: false
+        enabled: true # whether or not to run this step; defaults to 'true'
+        timeoutInMinutes: 0 
