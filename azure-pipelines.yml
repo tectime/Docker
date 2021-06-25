@@ -35,10 +35,10 @@ stages:
             image: 'tectimerfm/malware:latest'
             scanType: 'remote'
             register: false
-            registry: 'registry.aquasec.com'
+            registry: 'Docker'
             hideBase: false
             showNegligible: false
-            scanner: "$(AQUA_REGISTRY)/scanner:$(AQUA_SCANNER_VERSION)"
+            scanner: "registry.aquasec.com/scanner:6.0"
             connection: 'Aqua-server'
             notCompliesCmd: 'ls'
             caCertificates: false
