@@ -42,6 +42,3 @@ stages:
             connection: 'Aqua-server'
             notCompliesCmd: 'ls'
             caCertificates: false
-          continueOnError: false
-          enabled: true          # whether or not to run this step; defaults to 'true'
-          timeoutInMinutes: 0
