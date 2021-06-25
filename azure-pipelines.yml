@@ -49,7 +49,7 @@ stages:
         image: 'tectimerfm/malware:latest'
         scanType: 'hosted'
         register: false
-        registry: 'DockerHub'
+        registry: 'Docker'
         hideBase: false
         showNegligible: false
         scanner: "registry.aquasec.com/scanner:6.0"
