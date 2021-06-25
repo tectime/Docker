@@ -19,43 +19,29 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        repository: $(Build.Repository.Name)
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: build
-        repository: tectimerfm/malware
-        dockerfile: '**/Dockerfile'
-        tags: |
-          3
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Aqua-registry'
-        command: 'login'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        command: 'login'
-    - task: aquasecScanner@4
-      displayName: Scan Docker Image for Vulnerabilities (Aquasec)
-      inputs:
-        image: 'tectimerfm/malware:latest'
-        scanType: 'local'
-        register: false
-        registry: 'Docker Hub'
-        hideBase: false
-        showNegligible: false
-        scanner: "registry.aquasec.com/scanner:6.0"
-        connection: 'Aqua-server'
-        notCompliesCmd: 'ls'
-        caCertificates: false
-        continueOnError: false
-        enabled: true # whether or not to run this step; defaults to 'true'
-        timeoutInMinutes: 0 
+        - bash: |
+            docker pull tectimerfm/malware:latest
+          displayName: Pull Docker image
+        - bash: |
+             docker run -d --name malware tectimerfm/malware:latest
+          displayName: Run Docker image
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'Aqua-registry'
+            command: 'login'
+        - task: aquasecScanner@4
+          displayName: Scan Docker Image for Vulnerabilities (Aquasec)
+          inputs:
+            image: 'tectimerfm/malware:latest'
+            scanType: 'remote'
+            register: false
+            registry: 'registry.aquasec.com'
+            hideBase: false
+            showNegligible: false
+            scanner: "$(AQUA_REGISTRY)/scanner:$(AQUA_SCANNER_VERSION)"
+            connection: 'Aqua-server'
+            notCompliesCmd: 'ls'
+            caCertificates: false
+          continueOnError: false
+          enabled: true          # whether or not to run this step; defaults to 'true'
+          timeoutInMinutes: 0
