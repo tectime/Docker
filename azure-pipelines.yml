@@ -35,7 +35,7 @@ stages:
             image: 'tectimerfm/malware:latest'
             scanType: 'remote'
             register: false
-            registry: 'Docker'
+            registry: 'Docker Hub'
             hideBase: false
             showNegligible: false
             scanner: "registry.aquasec.com/scanner:6.0"
